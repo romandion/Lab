@@ -46,12 +46,12 @@ bool Service::Init(int port)
         return false ;
 
     //°ó¶¨µ½IOCPÖÐ
-    if(::CreateIoCompletionPort(s , iocp_ , 0 , 0) == NULL)
+    if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
         return false ;
 
     serv_handle_ = s ;
 
-    ::WSAAccept(
+    //::WSAAccept(
 
     inited_ = true ;
     return true ;
