@@ -1,14 +1,32 @@
 
 #include "service.h"
 
+ServiceCallback::ServiceCallback()
+{
+    Owner = NULL ;
+}
+
+ServiceCallback::~ServiceCallback()
+{
+    Owner = NULL ;
+}
+
+bool ServiceCallback::OnAcceptConnect(SOCKET& s)
+{
+    return Owner->ProcessNewConnect(s) ;
+}
+
+
 Service::Service()
 {
     inited_ = false ;
     terminated_ = false ;
     finaled_ = false ;
     iocp_ = INVALID_HANDLE_VALUE ;
-    serv_handle_ = INVALID_SOCKET ;
     worker_ = INVALID_HANDLE_VALUE ;
+    locker_ = ::CreateMutex(NULL , FALSE ,NULL) ;
+    callback_.Owner = this ;
+    acceptor_.Callback(&callback_) ;
 }
 
 Service::~Service()
@@ -31,27 +49,8 @@ bool Service::Init(int port)
     if(InitIOCP() == false)
         return false ;
 
-    SOCKET s = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP) ;
-    if(s == INVALID_SOCKET)
+    if(acceptor_.Init(port) == false)
         return false ;
-
-    struct sockaddr_in sin ;
-    sin.sin_family = AF_INET ;
-    sin.sin_port = ::htons(port) ;
-    sin.sin_addr.s_addr = INADDR_ANY ;
-
-    if(::bind(s , (const sockaddr *)&sin , sizeof(sin)) == SOCKET_ERROR)
-        return false ;
-    if(::listen(s , 16) == SOCKET_ERROR)
-        return false ;
-
-    //°ó¶¨µ½IOCPÖÐ
-    if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
-        return false ;
-
-    serv_handle_ = s ;
-
-    //::WSAAccept(
 
     inited_ = true ;
     return true ;
@@ -71,12 +70,15 @@ void Service::Final()
         worker_ = INVALID_HANDLE_VALUE ;
     }
 
+    ::WaitForSingleObject(locker_ , INFINITE) ;
     for(std::set<SOCKET>::iterator iter = clients_.begin() ; iter != clients_.end() ; ++iter)
     {
         SOCKET s = *iter ;
         ::closesocket(s) ;
     }
     clients_.clear() ;
+    ::ReleaseMutex(locker_) ;
+
     ::CloseHandle(iocp_) ;
     iocp_ = INVALID_HANDLE_VALUE ;
 }
@@ -85,7 +87,7 @@ void Service::Final()
 DWORD WINAPI ServiceRoutine(LPVOID lpParameter)
 {
     Service * service = (Service *)lpParameter ;
-    service->Loop() ;
+    service->Process() ;
     return 0 ;
 }
 
@@ -102,19 +104,49 @@ void Service::Terminate()
     terminated_ = true ;
 }
 
-void Service::Loop()
+void Service::Process()
 {
     while(terminated_ == false && finaled_ == false)
     {
-        DWORD bytes = 0 ;
-        ULONG_PTR key = 0 ;
-        LPOVERLAPPED ovlp = NULL ;
-        if(::GetQueuedCompletionStatus(iocp_ , &bytes , &key , &ovlp , 1000) == FALSE)
+        DWORD numTransfered = 0 ;
+        ULONG_PTR completionKey = 0 ;
+        OVERLAPPED * ovlp = NULL ;
+
+        bool status = ::GetQueuedCompletionStatus(iocp_ , &numTransfered , &completionKey , &ovlp , 1000) ;
+        if(status == false)
             continue ;
 
-        //if(key == 
-
+        AsynResult * result = (AsynResult *)ovlp ;
+        if
+    
     }
+}
+
+bool Service::ProcessNewConnect(SOCKET&s)
+{
+    if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
+        return false ;
+
+    ::WaitForSingleObject(locker_ , INFINITE) ;
+    clients_.insert(s) ;
+    ::ReleaseMutex(locker_) ;
+
+    StartReading(s) ;
+    return true ;
+}
+
+void Service::StartReading(SOCKET& s)
+{
+    DWORD bytesReceived = 0 , flags = 0 ;
+    AsynResult * result = new AsynResult() ;
+    result->SetType(OVLP_INPUT) ;
+    int status = ::WSARecv(s , result->GetWSABUF() , 1 , &bytesReceived , &flags , result , NULL) ;
+    if(status == 0)
+        return ;
+
+    int error = ::WSAGetLastError() ;
+    if(error != WSA_IO_PENDING)
+        result->Status(error) ;
 }
 
 
