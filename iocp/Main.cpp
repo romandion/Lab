@@ -23,6 +23,8 @@ int main(int argc , char ** argv)
     }
     svr.Run() ;
 
+    ::Sleep(3000) ;
+
     Client cli ;
     cli.Connect("127.0.01" , service_port);
     cli.Run() ;

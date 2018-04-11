@@ -4,6 +4,8 @@
 
 AsynResult::AsynResult()
 {
+    OVERLAPPED * ov = (OVERLAPPED *)this ;
+    ::memset(ov , 0 , sizeof(OVERLAPPED)) ;
     wsa_.buf = NULL ;
     wsa_.len = 0 ;
     bytes_ = 0 ;
@@ -17,6 +19,9 @@ AsynResult::AsynResult()
 
 AsynResult::AsynResult(SOCKET& owner , OVLPType type) 
 {
+    OVERLAPPED * ov = (OVERLAPPED *)this ;
+    ::memset(ov , 0 , sizeof(OVERLAPPED)) ;
+
     wsa_.buf = NULL ;
     wsa_.len = 0 ;
     bytes_ = 0 ;

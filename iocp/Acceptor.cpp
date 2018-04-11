@@ -46,6 +46,7 @@ bool Acceptor::InitListenPort(int port)
     if(::listen(socket_ , 16) == SOCKET_ERROR)
         return false ;
 
+    ::printf("we have init listen port[%d] socket[%u]\n" , port , socket_) ;
     return true ;
 }
 
@@ -131,6 +132,8 @@ void Acceptor::Process()
         SOCKET client =  ::WSAAccept(socket_ , (SOCKADDR *)&saClient , &saSize , NULL , NULL) ;
         if(client == INVALID_SOCKET)
             continue ;
+
+        ::printf("accept a new in connection[%u] [%s]\n" , client , ::inet_ntoa(saClient.sin_addr)) ;
         u_long nonblock =1 ;
         ::ioctlsocket(client , FIONBIO , &nonblock) ;
 

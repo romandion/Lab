@@ -139,8 +139,9 @@ void Service::Process()
     }
 }
 
-bool Service::ProcessNewConnect(SOCKET&s)
+bool Service::ProcessNewConnect(SOCKET &s)
 {
+    ::printf("process new connection[%d] \n" , s) ;
     if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
         return false ;
 
