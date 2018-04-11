@@ -1,5 +1,6 @@
 
-#include "service.h"
+#include "Service.h"
+#include "AsynResult.h"
 
 ServiceCallback::ServiceCallback()
 {
@@ -112,13 +113,29 @@ void Service::Process()
         ULONG_PTR completionKey = 0 ;
         OVERLAPPED * ovlp = NULL ;
 
-        bool status = ::GetQueuedCompletionStatus(iocp_ , &numTransfered , &completionKey , &ovlp , 1000) ;
-        if(status == false)
+        BOOL status = ::GetQueuedCompletionStatus(iocp_ , &numTransfered , &completionKey , &ovlp , 1000) ;
+        if(status == FALSE)
             continue ;
 
         AsynResult * result = (AsynResult *)ovlp ;
-        if
-    
+        if(result == NULL)
+            continue ;
+
+        if(result->Status() != 0)
+        {
+            delete result ;
+            continue ;
+        }
+
+        result->Complete((int)numTransfered) ;
+        if(result->Type() == OVLP_OUTPUT || result->Status() != 0)
+        {
+            delete result ;
+            continue ;
+        }
+
+        result->ReadToWrite() ;
+        StartWriting(result->Owner() , result) ;
     }
 }
 
@@ -138,45 +155,25 @@ bool Service::ProcessNewConnect(SOCKET&s)
 void Service::StartReading(SOCKET& s)
 {
     DWORD bytesReceived = 0 , flags = 0 ;
-    AsynResult * result = new AsynResult() ;
-    result->SetType(OVLP_INPUT) ;
+    AsynResult * result = new AsynResult(s , OVLP_INPUT) ;
+    result->PrepairRead() ;
     int status = ::WSARecv(s , result->GetWSABUF() , 1 , &bytesReceived , &flags , result , NULL) ;
     if(status == 0)
         return ;
 
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
-        result->Status(error) ;
+        result->Failure(error) ;
 }
 
-
-AsynResult::AsynResult()
+void Service::StartWriting(SOCKET& s , AsynResult * result) 
 {
-    wsa_.buf = NULL ;
-    wsa_.len = 0 ;
-    bytes_ = 0 ;
-    status_ = 0 ;
-    type_ = OVLP_VOID ;
+    DWORD bytesSent = 0 ;
+    int status = ::WSASend(s , result->GetWSABUF() , 1 , &bytesSent , 0 , result , NULL) ;
+    if(status == 0)
+        return ;
 
-    bufsize_ = 4096 ;
-    buffer_ = (char *)::malloc(bufsize_) ;
+    int error = ::WSAGetLastError() ;
+    if(error != WSA_IO_PENDING)
+        result->Failure(error) ;
 }
-
-AsynResult::~AsynResult()
-{
-    if(buffer_ != NULL)
-    {
-        ::free(buffer_) ;
-        buffer_ = NULL ;
-    }
-}
-
-void AsynResult::Complete(int bytes)
-{
-    bytes_ = bytes ;
-}
-
-
-
-
-

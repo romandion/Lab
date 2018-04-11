@@ -174,23 +174,27 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath=".\acceptor.cpp"
+				RelativePath=".\Acceptor.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\client.cpp"
+				RelativePath=".\AsynResult.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\main.cpp"
+				RelativePath=".\Client.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\result.cpp"
+				RelativePath=".\Main.cpp"
 				>
 			</File>
 			<File
-				RelativePath=".\service.cpp"
+				RelativePath=".\RingBuffer.cpp"
+				>
+			</File>
+			<File
+				RelativePath=".\Service.cpp"
 				>
 			</File>
 		</Filter>
@@ -200,19 +204,23 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
-				RelativePath=".\acceptor.h"
+				RelativePath=".\Acceptor.h"
 				>
 			</File>
 			<File
-				RelativePath=".\client.h"
+				RelativePath=".\AsynResult.h"
 				>
 			</File>
 			<File
-				RelativePath=".\result.h"
+				RelativePath=".\Client.h"
 				>
 			</File>
 			<File
-				RelativePath=".\service.h"
+				RelativePath=".\RingBuffer.h"
+				>
+			</File>
+			<File
+				RelativePath=".\Service.h"
 				>
 			</File>
 		</Filter>

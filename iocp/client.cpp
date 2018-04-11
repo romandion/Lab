@@ -76,7 +76,7 @@ int Client::Recv(char * buffer , int bufsize)
 DWORD WINAPI ClientRoutine(LPVOID lpParameter)
 {
     Client * client = (Client *)lpParameter ;
-    client->Loop() ;
+    client->Process() ;
     return 0 ;
 }
 
@@ -88,7 +88,7 @@ void Client::Run()
     worker_ = ::CreateThread(NULL , 0 , ClientRoutine , this , 0 , NULL) ;
 }
 
-void Client::Loop() 
+void Client::Process() 
 {
     int sequence = 0 ;
     while(terminated_ == false && finaled_ == false)

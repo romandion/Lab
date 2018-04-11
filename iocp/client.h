@@ -19,7 +19,7 @@ public:
     void Run() ;
     void Terminate() ;
     void Final() ;
-    void Loop() ;
+    void Process() ;
 
     inline int ClientID() const {return client_id_ ;}
 private:
