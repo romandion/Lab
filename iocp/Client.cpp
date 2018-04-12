@@ -1,5 +1,6 @@
 
 #include "Client.h"
+#include "Logger.h"
 #include <time.h>
 #include <stdio.h>
 #include <string.h>
@@ -16,6 +17,8 @@ Client::Client()
     worker_ = INVALID_HANDLE_VALUE ;
 
     client_id_ = ++__global_client_id__ ;
+
+    ::fprintf(logfile , "ClientInit[%d]\n" , client_id_) ;
 }
 
 Client::~Client()
@@ -27,7 +30,14 @@ bool Client::Connect(const char * addr , int port)
 {
     SOCKET s = ::socket(AF_INET , SOCK_STREAM , IPPROTO_TCP) ;
     if(s == INVALID_SOCKET)
+    {
+        ::fprintf(logfile , "failed to init client socket , ClientID[%d]\n" , client_id_) ;
         return false ;
+    }
+    else
+    {
+        ::fprintf(logfile , "ClientID[%d] succeed to init  SOCKET[%d]\n" , client_id_ , s) ;
+    }
 
     struct sockaddr_in sin ;
     sin.sin_family = AF_INET ;
@@ -40,12 +50,15 @@ bool Client::Connect(const char * addr , int port)
         int err = ::WSAGetLastError() ;
         if(err == WSAEWOULDBLOCK)
             result = 0 ;
+        else
+            ::fprintf(logfile , "ClientID[%d] failed to connect[%s:%d] errorcode[%d]\n" , client_id_ , addr , port , err) ;
     }
 
     if(result == 0)
     {
         handle_ = s ;
         connected_ = true ;
+        ::fprintf(logfile , "ClientID[%d] SOCKET[%d] succeed to connect[%s:%d] \n" , client_id_ , s , addr , port) ;
         return true ;
     }
     
@@ -57,6 +70,7 @@ void Client::Close()
 {
     if(handle_ != INVALID_SOCKET)
     {
+        ::fprintf(logfile , "ClientID[%d] will close SOCKET[%d]\n" , client_id_ , handle_) ;
         ::shutdown(handle_ ,  SD_BOTH) ;
         ::closesocket(handle_) ;
         handle_ = INVALID_SOCKET ;
@@ -96,10 +110,12 @@ void Client::Process()
         ++sequence ;
         char sbuf[1024] , rbuf[1024] ;
         int size = ::sprintf(sbuf , "ClientID[%d] Time[%d] Sequence[%08d]" , client_id_ , (int)::time(NULL) , sequence) ;
+        ::fprintf(logfile , "begin to send %d bytes , %s \n" , size , sbuf) ;
         int sent_bytes = Send(sbuf , size) ;
         int recv_bytes = 0 ;
         while(true)
         {
+            ::fprintf(logfile , "ClientID[%d]  begin to recv \n" , client_id_) ;
             int recv_size = Recv(rbuf , sizeof(rbuf)) ;
             if(recv_size > 0)
                 recv_bytes += recv_size ;
@@ -110,12 +126,16 @@ void Client::Process()
                 break ;
         }
 
+        ::fprintf(logfile , "end to recv %d bytes \n" , recv_bytes) ;
+
         if(sent_bytes != recv_bytes)
         {
-            ::printf("client[%d] occuse error \n" , client_id_) ;
+            ::fprintf(logfile , "client[%d] occuse error , sent[%d] recv[%d]\n" , client_id_ , sent_bytes , recv_bytes) ;
             break ;
         }
     }
+
+    ::fprintf(logfile , "ClientID[%d] have break main loop \n" , client_id_) ;
 }
 
 void Client::Terminate()

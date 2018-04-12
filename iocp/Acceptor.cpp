@@ -1,5 +1,6 @@
 
 #include "Acceptor.h"
+#include "Logger.h"
 
 AcceptorCallback::AcceptorCallback()
 {
@@ -80,6 +81,7 @@ void Acceptor::Final()
     if(finaled_ == true)
         return ;
 
+    ::fprintf(logfile , "Acceptor begin to final \n") ;
     finaled_ = true ;
     if(worker_ != NULL)
     {
@@ -133,7 +135,7 @@ void Acceptor::Process()
         if(client == INVALID_SOCKET)
             continue ;
 
-        ::printf("accept a new in connection[%u] [%s]\n" , client , ::inet_ntoa(saClient.sin_addr)) ;
+        ::fprintf(logfile , "accept a new in connection[%u] [%s]\n" , client , ::inet_ntoa(saClient.sin_addr)) ;
         u_long nonblock =1 ;
         ::ioctlsocket(client , FIONBIO , &nonblock) ;
 

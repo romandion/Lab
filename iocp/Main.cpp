@@ -25,9 +25,7 @@ int main(int argc , char ** argv)
 
     ::Sleep(3000) ;
 
-    Client cli ;
-    cli.Connect("127.0.01" , service_port);
-    cli.Run() ;
+    Client * cli = StartClient("127.0.01" , service_port);
 
     int chr = 0 ;
     while((chr = ::getchar()) != 'q')
@@ -35,7 +33,9 @@ int main(int argc , char ** argv)
         continue ;
     }
 
-    cli.Final() ;
+    StopClient(cli) ;
+
+    cli->Final() ;
     svr.Final() ;
 
     WSACleanup();

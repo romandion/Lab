@@ -1,6 +1,7 @@
 
 #include "Service.h"
 #include "AsynResult.h"
+#include "Logger.h"
 
 ServiceCallback::ServiceCallback()
 {
@@ -39,9 +40,13 @@ bool Service::InitIOCP()
 {
     HANDLE h = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE , NULL , 0 , 0) ;
     if(h == NULL || h == INVALID_HANDLE_VALUE)
+    {
+        ::fprintf(logfile , "failed to init IOCP \n") ;
         return false ;
+    }
 
     iocp_ = h ;
+    ::fprintf(logfile , "succeed to init IOCP \n") ;
     return true ;
 }
 
@@ -54,6 +59,7 @@ bool Service::Init(int port)
         return false ;
 
     inited_ = true ;
+    ::fprintf(logfile , "succeed to init Service \n") ;
     return true ;
 }
 
@@ -141,7 +147,7 @@ void Service::Process()
 
 bool Service::ProcessNewConnect(SOCKET &s)
 {
-    ::printf("process new connection[%d] \n" , s) ;
+    ::fprintf(logfile , "process new connection[%d] \n" , s) ;
     if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
         return false ;
 
@@ -158,13 +164,20 @@ void Service::StartReading(SOCKET& s)
     DWORD bytesReceived = 0 , flags = 0 ;
     AsynResult * result = new AsynResult(s , OVLP_INPUT) ;
     result->PrepairRead() ;
+    ::fprintf(logfile , "SOCKET[%d] begin to read\n" , s) ;
     int status = ::WSARecv(s , result->GetWSABUF() , 1 , &bytesReceived , &flags , result , NULL) ;
     if(status == 0)
         return ;
 
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
+    {
+        ::fprintf(logfile , "SOCKET[%d] failed to read , error code[%d]\n" , s , error) ;
         result->Failure(error) ;
+        return ;
+    }
+
+    ::fprintf(logfile , "SOCKET[%d] succeed to read [%d] bytes\n" , s , (int)bytesReceived) ;
 }
 
 void Service::StartWriting(SOCKET& s , AsynResult * result) 
@@ -176,5 +189,11 @@ void Service::StartWriting(SOCKET& s , AsynResult * result)
 
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
+    {
+        ::fprintf(logfile , "SOCKET[%d] failed to send , error code[%d]\n" , s , error) ;
         result->Failure(error) ;
+        return ;
+    }
+
+    ::fprintf(logfile , "SOCKET[%d] succeed to write [%d] bytes\n" , s , (int)bytesSent) ;
 }

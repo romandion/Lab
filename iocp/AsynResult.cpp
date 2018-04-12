@@ -78,6 +78,9 @@ void AsynResult::PrepairRead()
 
 void AsynResult::ReadToWrite() 
 {
+    OVERLAPPED * ovlp = (OVERLAPPED *)this ;
+    ::memset(ovlp , 0 , sizeof(OVERLAPPED)) ;
+
     wsa_.len = bytes_ ;
     bytes_ = 0 ;
     type_ = OVLP_OUTPUT ;
