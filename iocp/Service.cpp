@@ -196,7 +196,7 @@ void Service::StartReading(SOCKET& s)
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
     {
-        ::fprintf(logfile , "SOCKET[%d] failed to read , error code[%d]\n" , s , error) ;
+        ::fprintf(logfile , "6¡¢SOCKET[%d] failed to read , error code[%d]\n" , s , error) ;
         result->Failure(error) ;
         return ;
     }
@@ -208,15 +208,15 @@ void Service::StartWriting(SOCKET& s , AsynResult * result)
 {
     DWORD bytesSent = 0 ;
     int status = ::WSASend(s , result->GetWSABUF() , 1 , &bytesSent , 0 , result , NULL) ;
-    if(status == 0)
-        return ;
-
-    int error = ::WSAGetLastError() ;
-    if(error != WSA_IO_PENDING)
+    if(status != 0)
     {
-        ::fprintf(logfile , "SOCKET[%d] failed to send , error code[%d]\n" , s , error) ;
-        result->Failure(error) ;
-        return ;
+        int error = ::WSAGetLastError() ;
+        if(error != WSA_IO_PENDING)
+        {
+            ::fprintf(logfile , "SOCKET[%d] failed to send , error code[%d]\n" , s , error) ;
+            result->Failure(error) ;
+            return ;
+        }
     }
 
     ::fprintf(logfile , "SOCKET[%d] succeed to write [%d] bytes\n" , s , (int)bytesSent) ;

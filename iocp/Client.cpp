@@ -134,7 +134,7 @@ void Client::Process()
             break ;
         }
 
-        ::Sleep(5000) ;
+        ::Sleep(1000) ;
     }
 
     ::fprintf(logfile , "ClientID[%d] have break main loop \n" , client_id_) ;
