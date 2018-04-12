@@ -47,7 +47,7 @@ bool Acceptor::InitListenPort(int port)
     if(::listen(socket_ , 16) == SOCKET_ERROR)
         return false ;
 
-    ::printf("we have init listen port[%d] socket[%u]\n" , port , socket_) ;
+    ::fprintf(logfile , "we have init listen port[%d] socket[%u]\n" , port , socket_) ;
     return true ;
 }
 
@@ -81,7 +81,7 @@ void Acceptor::Final()
     if(finaled_ == true)
         return ;
 
-    ::printf("Acceptor begin to final \n") ;
+    ::fprintf(logfile , "Acceptor begin to final \n") ;
     finaled_ = true ;
     if(worker_ != NULL)
     {
@@ -135,7 +135,7 @@ void Acceptor::Process()
         if(client == INVALID_SOCKET)
             continue ;
 
-        ::printf("accept a new in connection[%u] [%s]\n" , client , ::inet_ntoa(saClient.sin_addr)) ;
+        ::fprintf(logfile , "accept a new in connection[%u] [%s]\n" , client , ::inet_ntoa(saClient.sin_addr)) ;
         u_long nonblock =1 ;
         ::ioctlsocket(client , FIONBIO , &nonblock) ;
 

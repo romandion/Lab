@@ -71,8 +71,10 @@ int AsynResult::Write(const void * buf , int size)
 
 void AsynResult::PrepairRead() 
 {
-    wsa_.buf = buffer_ ;
-    wsa_.len = bufsize_ ;
+    //wsa_.buf = buffer_ ;
+    //wsa_.len = bufsize_ ;
+    wsa_.buf = NULL ;
+    wsa_.len = 0 ;
     bytes_ = 0 ;
 }
 

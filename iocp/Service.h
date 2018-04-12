@@ -49,6 +49,8 @@ private:
 
     void StartReading(SOCKET& s) ;
     void StartWriting(SOCKET& s , AsynResult * result) ;
+
+    bool Echo(SOCKET& s) ;
 } ;
 
 #endif /** __SERVICE_H */

@@ -41,12 +41,12 @@ bool Service::InitIOCP()
     HANDLE h = ::CreateIoCompletionPort(INVALID_HANDLE_VALUE , NULL , 0 , 0) ;
     if(h == NULL || h == INVALID_HANDLE_VALUE)
     {
-        ::printf("failed to init IOCP \n") ;
+        ::fprintf(logfile , "failed to init IOCP \n") ;
         return false ;
     }
 
     iocp_ = h ;
-    ::printf("succeed to init IOCP \n") ;
+    ::fprintf(logfile , "succeed to init IOCP \n") ;
     return true ;
 }
 
@@ -59,7 +59,7 @@ bool Service::Init(int port)
         return false ;
 
     inited_ = true ;
-    ::printf("succeed to init Service \n") ;
+    ::fprintf(logfile , "succeed to init Service \n") ;
     return true ;
 }
 
@@ -134,23 +134,44 @@ void Service::Process()
         }
 
         result->Complete((int)numTransfered) ;
-        if(result->Type() == OVLP_OUTPUT || result->Status() != 0)
+        if(result->Type() == OVLP_INPUT && result->Status() == 0)
         {
-            delete result ;
-            continue ;
+            SOCKET s = result->Owner() ;
+            if(Echo(s) == true)
+            {
+                //继续读取
+                StartReading(s) ;
+                continue ;
+            }
         }
 
+        delete result ;
+        /**
         result->ReadToWrite() ;
         StartWriting(result->Owner() , result) ;
-
-        //继续读取
-        StartReading(result->Owner()) ;
+        */
     }
+}
+
+bool Service::Echo(SOCKET& s) 
+{
+    char buffer[4096] ;
+    int rsize = ::recv(s , buffer , sizeof(buffer) , 0) ;
+    ::fprintf(logfile , "2、SOCKET[%d] have recv [%d] bytes \n" , s , rsize) ;
+    if(rsize <= 0)
+        return false ;
+
+    AsynResult * result = new AsynResult(s , OVLP_OUTPUT) ;
+    result->Write(buffer , rsize) ;
+
+    StartWriting(s , result) ;
+    ::fprintf(logfile , "3、SOCKET[%d] have Echo [%d] bytes \n" , s , rsize) ;
+    return true ;
 }
 
 bool Service::ProcessNewConnect(SOCKET &s)
 {
-    ::printf("process new connection[%d] \n" , s) ;
+    ::fprintf(logfile , "process new connection[%d] \n" , s) ;
     if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
         return false ;
 
@@ -167,7 +188,7 @@ void Service::StartReading(SOCKET& s)
     DWORD bytesReceived = 0 , flags = 0 ;
     AsynResult * result = new AsynResult(s , OVLP_INPUT) ;
     result->PrepairRead() ;
-    ::printf("SOCKET[%d] begin to read\n" , s) ;
+    ::fprintf(logfile , "5、SOCKET[%d] start to pre read\n" , s) ;
     int status = ::WSARecv(s , result->GetWSABUF() , 1 , &bytesReceived , &flags , result , NULL) ;
     if(status == 0)
         return ;
@@ -175,12 +196,12 @@ void Service::StartReading(SOCKET& s)
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
     {
-        ::printf("SOCKET[%d] failed to read , error code[%d]\n" , s , error) ;
+        ::fprintf(logfile , "SOCKET[%d] failed to read , error code[%d]\n" , s , error) ;
         result->Failure(error) ;
         return ;
     }
 
-    ::printf("SOCKET[%d] succeed to read [%d] bytes\n" , s , (int)bytesReceived) ;
+    ::fprintf(logfile , "6、SOCKET[%d] succeed to pre read [%d] bytes\n" , s , (int)bytesReceived) ;
 }
 
 void Service::StartWriting(SOCKET& s , AsynResult * result) 
@@ -193,10 +214,10 @@ void Service::StartWriting(SOCKET& s , AsynResult * result)
     int error = ::WSAGetLastError() ;
     if(error != WSA_IO_PENDING)
     {
-        ::printf("SOCKET[%d] failed to send , error code[%d]\n" , s , error) ;
+        ::fprintf(logfile , "SOCKET[%d] failed to send , error code[%d]\n" , s , error) ;
         result->Failure(error) ;
         return ;
     }
 
-    ::printf("SOCKET[%d] succeed to write [%d] bytes\n" , s , (int)bytesSent) ;
+    ::fprintf(logfile , "SOCKET[%d] succeed to write [%d] bytes\n" , s , (int)bytesSent) ;
 }
