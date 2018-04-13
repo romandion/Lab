@@ -3,25 +3,22 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-SockOpt::SockOpt()
-{
-    socket_ = INVALID_SOCKET ;
-}
 
 SockOpt::SockOpt(SOCKET& s) 
+:socket_(s) 
 {
-    socket_ = s ;
+    //
 }
 
 SockOpt::~SockOpt()
 {
-    socket_ = INVALID_SOCKET ;
+    //
 }
 
 bool SockOpt::KeepAlive() const
 {
     BOOL optval = FALSE ;
-    int optlen = 0 ;
+    int optlen = sizeof(optval) ;
     if(::getsockopt(socket_ , SOL_SOCKET , SO_KEEPALIVE , (char *)&optval , &optlen) == 0)
         return (optval == TRUE) ;
     printf("keepalive error[%d]\n" , WSAGetLastError()) ;
@@ -36,7 +33,7 @@ bool SockOpt::KeepAlive(bool val)
 
 int SockOpt::RecvBufferSize() const
 {
-    int optval = 0 , optlen = 0 ;
+    int optval = 0 , optlen = sizeof(optval) ;
     if(::getsockopt(socket_ , SOL_SOCKET , SO_RCVBUF , (char *)&optval , &optlen) == 0)
         return optval ;
 
@@ -52,7 +49,7 @@ bool SockOpt::RecvBufferSize(int size)
 DWORD SockOpt::RecvTimeout() const
 {
     DWORD optval = 0 ;
-    int optlen = 0 ;
+    int optlen = sizeof(optval) ;
     if(::getsockopt(socket_ , SOL_SOCKET , SO_RCVTIMEO , (char *)&optval , &optlen) == 0)
         return optval ;
     printf("SO_RCVTIMEO error[%d]\n" , WSAGetLastError()) ;
@@ -66,7 +63,7 @@ bool SockOpt::RecvTimeout(DWORD timeout)
 
 int SockOpt::SendBufferSize() const
 {
-    int optval = 0 , optlen = 0 ;
+    int optval = 0 , optlen = sizeof(optval) ;
     if(::getsockopt(socket_ , SOL_SOCKET , SO_SNDBUF , (char *)&optval , &optlen) == 0)
         return optval ;
     printf("SO_SNDBUF error[%d]\n" , WSAGetLastError()) ;
@@ -81,7 +78,7 @@ bool SockOpt::SendBufferSize(int size)
 DWORD SockOpt::SendTimeout() const 
 {
     DWORD optval = 0 ;
-    int optlen = 0 ;
+    int optlen = sizeof(optval) ;
     if(::getsockopt(socket_ , SOL_SOCKET , SO_SNDTIMEO , (char *)&optval , &optlen) == 0)
         return optval ;
     printf("SO_SNDTIMEO error[%d]\n" , WSAGetLastError()) ;

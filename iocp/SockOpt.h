@@ -6,7 +6,6 @@
 
 class SockOpt{
 public:
-    SockOpt() ;
     SockOpt(SOCKET& s) ;
     ~SockOpt() ;
 
@@ -25,12 +24,9 @@ public:
     DWORD SendTimeout() const ;
     bool SendTimeout(DWORD timeout);
 
-    inline void Owner(SOCKET& s) {socket_ = s ;}
-    inline SOCKET Owner() const {return socket_;}
-
     void ToString(char * str , size_t size) const ;
 private:
-    SOCKET socket_ ;
+    SOCKET& socket_ ;
 } ;
 
 
