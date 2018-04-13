@@ -2,6 +2,7 @@
 #include "Service.h"
 #include "AsynResult.h"
 #include "Logger.h"
+#include "SockOpt.h"
 
 ServiceCallback::ServiceCallback()
 {
@@ -171,7 +172,10 @@ bool Service::Echo(SOCKET& s)
 
 bool Service::ProcessNewConnect(SOCKET &s)
 {
-    ::fprintf(logfile , "process new connection[%d] \n" , s) ;
+    SockOpt so(s) ;
+    char buffer[1024] ;
+    so.ToString(buffer , sizeof(buffer)) ;
+    ::fprintf(logfile , "process new connection[%d] %s\n" , s , buffer) ;
     if(::CreateIoCompletionPort((HANDLE)s , iocp_ , 0 , 0) == NULL)
         return false ;
 

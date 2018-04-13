@@ -5,7 +5,7 @@ FILE * logfile = NULL;
 
 LoggerInitializer::LoggerInitializer()
 {
-    logfile = ::fopen("iocp.log" , "a+b") ;
+    logfile = ::fopen("iocp.log" , "w+b") ;
 }
 
 LoggerInitializer::~LoggerInitializer()

@@ -201,6 +201,10 @@
 				RelativePath=".\Service.cpp"
 				>
 			</File>
+			<File
+				RelativePath=".\SockOpt.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Í·ÎÄ¼þ"
@@ -229,6 +233,10 @@
 			</File>
 			<File
 				RelativePath=".\Service.h"
+				>
+			</File>
+			<File
+				RelativePath=".\SockOpt.h"
 				>
 			</File>
 		</Filter>
