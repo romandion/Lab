@@ -25,9 +25,10 @@ public:
     bool SendTimeout(DWORD timeout);
 
     bool NonBlock(bool enable) ;
-
     DWORD ReadableSize() const ;
 
+    bool NoDelay() const ;
+    bool NoDelay(bool enable) ;
 
     void ToString(char * str , size_t size) const ;
 

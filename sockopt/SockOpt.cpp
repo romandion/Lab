@@ -112,3 +112,18 @@ DWORD SockOpt::ReadableSize() const
     return value ;
 }
 
+bool SockOpt::NoDelay() const 
+{
+    BOOL val = FALSE ;
+    int len = sizeof(val) ;
+    if(::getsockopt(socket_ , IPPROTO_TCP , TCP_NODELAY , (char *)&val , &len) == 0)
+        return (val == TRUE) ;
+    return false ;
+}
+
+bool SockOpt::NoDelay(bool enable)  
+{
+    BOOL val = (enable==true?TRUE:FALSE) ;
+    return (::setsockopt(socket_ , IPPROTO_TCP , TCP_NODELAY , (char *)&val , sizeof(val)) == 0) ;
+}
+

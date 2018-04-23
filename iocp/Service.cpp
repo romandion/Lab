@@ -9,8 +9,6 @@
 ServiceCallback::ServiceCallback()
 {
     Owner = NULL ;
-
-    //::ConnectEx
 }
 
 ServiceCallback::~ServiceCallback()
