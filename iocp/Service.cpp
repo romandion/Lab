@@ -4,9 +4,13 @@
 #include "Logger.h"
 #include "SockOpt.h"
 
+#include <MSWSock.h>
+
 ServiceCallback::ServiceCallback()
 {
     Owner = NULL ;
+
+    //::ConnectEx
 }
 
 ServiceCallback::~ServiceCallback()
@@ -146,6 +150,11 @@ void Service::Process()
             }
         }
 
+        if(result->Type() == OVLP_OUTPUT)
+        {
+            ::fprintf(logfile , "SOCKET[%d] sent [%u] bytes when iocompleted \n" , (int)result->Owner() , numTransfered) ;
+        }
+
         delete result ;
         /**
         result->ReadToWrite() ;
@@ -156,7 +165,7 @@ void Service::Process()
 
 bool Service::Echo(SOCKET& s) 
 {
-    char buffer[4096] ;
+    char buffer[32] ;
     int rsize = ::recv(s , buffer , sizeof(buffer) , 0) ;
     ::fprintf(logfile , "2¡¢SOCKET[%d] have recv [%d] bytes \n" , s , rsize) ;
     if(rsize <= 0)
@@ -223,5 +232,5 @@ void Service::StartWriting(SOCKET& s , AsynResult * result)
         }
     }
 
-    ::fprintf(logfile , "SOCKET[%d] succeed to write [%d] bytes\n" , s , (int)bytesSent) ;
+    ::fprintf(logfile , "SOCKET[%d] succeed to write [%d] bytes immediatly \n" , s , (int)bytesSent) ;
 }

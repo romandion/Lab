@@ -3,6 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "iocp", "iocp\iocp.vcproj", "{B952A411-EA03-453B-BFBB-A40CA9AFF99D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atomic", "atomic\atomic.vcproj", "{8048D4B0-2919-4590-ABB9-8486A8CC0BEE}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sockopt", "sockopt\sockopt.vcproj", "{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -13,6 +17,14 @@ Global
 		{B952A411-EA03-453B-BFBB-A40CA9AFF99D}.Debug|Win32.Build.0 = Debug|Win32
 		{B952A411-EA03-453B-BFBB-A40CA9AFF99D}.Release|Win32.ActiveCfg = Release|Win32
 		{B952A411-EA03-453B-BFBB-A40CA9AFF99D}.Release|Win32.Build.0 = Release|Win32
+		{8048D4B0-2919-4590-ABB9-8486A8CC0BEE}.Debug|Win32.ActiveCfg = Debug|Win32
+		{8048D4B0-2919-4590-ABB9-8486A8CC0BEE}.Debug|Win32.Build.0 = Debug|Win32
+		{8048D4B0-2919-4590-ABB9-8486A8CC0BEE}.Release|Win32.ActiveCfg = Release|Win32
+		{8048D4B0-2919-4590-ABB9-8486A8CC0BEE}.Release|Win32.Build.0 = Release|Win32
+		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Debug|Win32.Build.0 = Debug|Win32
+		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Release|Win32.ActiveCfg = Release|Win32
+		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
