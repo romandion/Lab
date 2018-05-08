@@ -7,6 +7,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "atomic", "atomic\atomic.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "sockopt", "sockopt\sockopt.vcproj", "{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fileinfo", "fileinfo\fileinfo.vcproj", "{798D3825-0790-4EAD-B615-8CD506B5DFF9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -25,6 +27,10 @@ Global
 		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Debug|Win32.Build.0 = Debug|Win32
 		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Release|Win32.ActiveCfg = Release|Win32
 		{B8F0B50D-381A-4DA3-838C-1CBE1EAB86E0}.Release|Win32.Build.0 = Release|Win32
+		{798D3825-0790-4EAD-B615-8CD506B5DFF9}.Debug|Win32.ActiveCfg = Debug|Win32
+		{798D3825-0790-4EAD-B615-8CD506B5DFF9}.Debug|Win32.Build.0 = Debug|Win32
+		{798D3825-0790-4EAD-B615-8CD506B5DFF9}.Release|Win32.ActiveCfg = Release|Win32
+		{798D3825-0790-4EAD-B615-8CD506B5DFF9}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
