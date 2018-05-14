@@ -9,9 +9,17 @@
 int main(int argc , char * argv[])
 {
     rb_root_t root = {NULL} ;
-    int elapse = ::test_insert(&root) ;
+    test_node_t * nodes = build_test_nodes(kMaxSize) ;  
 
-    //int elapse = ::test_set_insert();
+    int elapse = ::test_insert(&root , nodes , kMaxSize) ;
     ::printf("elapse = %d \n" , elapse) ;
+    test_validate(&root) ;
+
+    for(int idx = 0 ; idx < kMaxSize ; ++idx)
+    {
+        
+    }
+
+
     return 0 ;
 }

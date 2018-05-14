@@ -44,24 +44,18 @@ int * rb_insert_testnode(rb_root_t * root , test_node_t * node)
     return ret ;
 }
 
-int test_insert(rb_root_t * rbtree)
+int test_insert(rb_root_t * rbtree , test_node_t * nodes , int size)
 { 
-    test_node_t * nodes = build_test_nodes(kMaxSize) ;
-
     DWORD start_tick = ::GetTickCount() ;
 
-    for(int idx = 0 ; idx < kMaxSize ; ++idx)
+    for(int idx = 0 ; idx < size ; ++idx)
     {
         test_node_t * node = nodes + idx ;
-        node->key = idx ;
-
-        //::rb_insert_color(&node->link , rbtree) ;    
+        node->key = idx ;    
         rb_insert_testnode(rbtree ,node) ;
     }
 
     DWORD end_tick = ::GetTickCount() ;
-
-    test_validate(rbtree) ;
 
     int elapse = (int)(end_tick - start_tick) ;
     if(elapse <= 0)
@@ -70,7 +64,7 @@ int test_insert(rb_root_t * rbtree)
     return elapse ;
 }
 
-int test_erase(rb_root_t * rbtree)
+int test_erase(rb_root_t * rbtree ,int key)
 {
     return 0 ;
 }
@@ -80,73 +74,68 @@ int test_find(rb_root_t * rbtree)
     return 0 ;
 }
 
+bool validate_node(test_node_t * node , int& cur_val , int& prev_val)
+{
+    prev_val = cur_val ;
+    cur_val = node->key ;
+
+    if(cur_val > prev_val) 
+        return true ;
+    
+    ::printf("PrevValue[%d] is greater than CurrentValue[%d] \n" , prev_val , cur_val) ;
+    return false ;
+}
+
 int test_validate(rb_root_t * rbtree) 
 {
-    test_node_t * nodes[128] ;
-    ::memset(nodes , 0 , sizeof(nodes)) ;
-    int level = 0 ;
-
-    rb_node_t * root = rbtree->root ;
-    nodes[level] = (test_node_t *)root ;
-    int index = 0 ;
-
-    while(level >= 0)
+    rb_node_t * cur = rbtree->root ;  
+    int cur_val = -1 , prev_val = -1 ;
+    
+    while(cur != NULL)
     {
-        rb_node_t * cur = (rb_node_t *)nodes[level] ;
-        if(cur == NULL)
+        if(cur->left != NULL)
         {
-            --level ;
+            cur = cur->left ;
+            continue ;
+        }        //不再有左儿子，打印本节点
+        validate_node((test_node_t *)cur , cur_val , prev_val) ;
+
+        if(cur->right != NULL)
+        {
+            cur = cur->right ;
             continue ;
         }
 
-        rb_node_t * child = (rb_node_t *)nodes[level + 1] ;
-        if(child == NULL)
+        //即没有左儿子，也没有右儿子。右儿子向上回溯
+        rb_node_t * parent = cur->parent ;
+        while(parent != NULL)
         {
-            if(cur->left != NULL)
+            if(cur == parent->left)
             {
-                ++level ;
-                nodes[level] = (test_node_t *)cur->left ;
-                continue ;
+                validate_node((test_node_t *)parent , cur_val , prev_val) ;
+
+                if(parent->right == NULL)
+                {
+                    cur = parent ;
+                    parent = cur->parent ;
+                }
+                else
+                {
+                    cur = parent->right ;
+                    break ;
+                }
             }
-            else if(cur->right != NULL)
+            else if(cur == parent->right)
             {
-                ++level ;
-                nodes[level] = (test_node_t *)cur->right ;
-                continue ;
-            }
-            else
-            {
-                //不再有子节点了，本节点就是叶子节点
-                ++index ;
-                --level ;
-                printf("[%08d] = [%08d] \n" , index , ((test_node_t *)cur)->key) ;
+                cur = parent ;
+                parent = cur->parent ;
             }
         }
-        else if(child == cur->left)
-        {
-            if(cur->right != NULL)
-            {
-                ++level ;
-                nodes[level] = (test_node_t *)cur->right ;
-            }
-            else
-                --level ;
-            continue ;
-        }
-        else if(child == cur->right)
-        {
-            --level ;
-            continue ;
-        }
-        else
-        {
-            //跳跃到其他分支去，则先深度遍历
-            nodes[level + 1] = NULL ;
-            printf("[%08d] = [%08d] \n" , index , ((test_node_t *)cur)->key) ;
-        }
+
+        if(parent == NULL)
+            break ;
     }
 
-
-    return index ;
+    return 0 ;
 }
 
