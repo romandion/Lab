@@ -14,7 +14,7 @@ typedef struct __st_test_node{
     int key ;
 } test_node_t ;
 
-static const int kMaxSize = 10000 ;
+static const int kMaxSize = 5000000 ;
 
 test_node_t * build_test_nodes(int max_size) ;
 
@@ -22,7 +22,7 @@ int test_insert(rb_root_t * rbtree , test_node_t * nodes , int size) ;
 
 int test_erase(rb_root_t * rbtree , int key) ;
 
-int test_find(rb_root_t * rbtree) ;
+int test_find(rb_root_t * rbtree , int key) ;
 
 //ÖÐÐò±éÀú
 int test_validate(rb_root_t * rbtree) ;

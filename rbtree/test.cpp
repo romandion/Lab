@@ -64,13 +64,41 @@ int test_insert(rb_root_t * rbtree , test_node_t * nodes , int size)
     return elapse ;
 }
 
+rb_node_t * test_search(rb_root_t * rbtree , int key)
+{
+    rb_node_t * cur = rbtree->root ;
+    while(cur != NULL)
+    {
+        test_node_t * node = (test_node_t *)cur ;
+        if(node->key == key)
+            return cur ;
+        else if(node->key > key)
+            cur = cur->left ;
+        else
+            cur = cur->right ;
+    }
+
+    return NULL ;
+}
+
 int test_erase(rb_root_t * rbtree ,int key)
 {
+    rb_node_t * node = test_search(rbtree , key) ;
+    if(node == NULL)
+        return -1 ;
+
+    ::rb_erase(node , rbtree) ;
     return 0 ;
 }
 
-int test_find(rb_root_t * rbtree)
+int test_find(rb_root_t * rbtree , int key)
 {
+    rb_node_t * node = test_search(rbtree , key) ;
+    if(node == NULL)
+        return -1 ;
+
+    if(((test_node_t *)node)->key != key)
+        return -2 ;
     return 0 ;
 }
 
