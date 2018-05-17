@@ -11,6 +11,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "fileinfo", "fileinfo\filein
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rbtree", "rbtree\rbtree.vcproj", "{D3B048AE-BD1D-4D6A-B9AB-81480CCE8696}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "security", "security\security.vcproj", "{AA8073FD-DB55-45A3-882C-4804ACDAED2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -37,6 +39,10 @@ Global
 		{D3B048AE-BD1D-4D6A-B9AB-81480CCE8696}.Debug|Win32.Build.0 = Debug|Win32
 		{D3B048AE-BD1D-4D6A-B9AB-81480CCE8696}.Release|Win32.ActiveCfg = Release|Win32
 		{D3B048AE-BD1D-4D6A-B9AB-81480CCE8696}.Release|Win32.Build.0 = Release|Win32
+		{AA8073FD-DB55-45A3-882C-4804ACDAED2C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA8073FD-DB55-45A3-882C-4804ACDAED2C}.Debug|Win32.Build.0 = Debug|Win32
+		{AA8073FD-DB55-45A3-882C-4804ACDAED2C}.Release|Win32.ActiveCfg = Release|Win32
+		{AA8073FD-DB55-45A3-882C-4804ACDAED2C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
