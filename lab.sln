@@ -15,6 +15,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "security", "security\securi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "semaphore", "semaphore\semaphore.vcproj", "{7F272908-A26C-49DB-8E92-F9033E1DDFEB}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rxtree", "rxtree\rxtree.vcproj", "{E842AADA-BC79-46BC-8E55-2C279E867789}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -49,6 +51,10 @@ Global
 		{7F272908-A26C-49DB-8E92-F9033E1DDFEB}.Debug|Win32.Build.0 = Debug|Win32
 		{7F272908-A26C-49DB-8E92-F9033E1DDFEB}.Release|Win32.ActiveCfg = Release|Win32
 		{7F272908-A26C-49DB-8E92-F9033E1DDFEB}.Release|Win32.Build.0 = Release|Win32
+		{E842AADA-BC79-46BC-8E55-2C279E867789}.Debug|Win32.ActiveCfg = Debug|Win32
+		{E842AADA-BC79-46BC-8E55-2C279E867789}.Debug|Win32.Build.0 = Debug|Win32
+		{E842AADA-BC79-46BC-8E55-2C279E867789}.Release|Win32.ActiveCfg = Release|Win32
+		{E842AADA-BC79-46BC-8E55-2C279E867789}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
