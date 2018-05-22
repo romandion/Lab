@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath=".\perf.cpp"
+				>
+			</File>
+			<File
 				RelativePath=".\rxtree.cpp"
 				>
 			</File>
@@ -187,7 +191,15 @@
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
 			<File
+				RelativePath=".\perf.h"
+				>
+			</File>
+			<File
 				RelativePath=".\rxtree.h"
+				>
+			</File>
+			<File
+				RelativePath=".\stdint.h"
 				>
 			</File>
 		</Filter>

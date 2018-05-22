@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "perf.h"
+#include "stdint.h"
 
 #ifdef	__cplusplus
 extern "C" {
@@ -12,10 +14,6 @@ extern "C" {
 
 #define RADIX_NO_VALUE   (uintptr_t) -1
 
-typedef int                 int32_t ;
-typedef char                int8_t ;
-typedef unsigned int        uint32_t ;
-typedef unsigned char       uint8_t ;
 
 typedef struct __st_rx_node rx_node_t ;
 struct __st_rx_node 
@@ -34,8 +32,10 @@ typedef struct __st_rx_tree rx_tree_t ;
 struct __st_rx_tree{
     rx_node_t           root;
     uint8_t             bits[sizeof(uintptr_t)] ;
+    uint8_t             total ;
     uint32_t            level ;
     void (*free)(uintptr_t value) ;
+    mem_mgr             *mems ;
 };
 
 static const uint32_t kPageShift =   12 ;
