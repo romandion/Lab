@@ -7,7 +7,7 @@
 int main(int argc , char * argv[])
 {
     const char * sem_name = "Global\\lab.ipc" ;
-    HANDLE handle = ::CreateSemaphoreA(NULL , 100 , LONG_MAX , sem_name) ;
+    HANDLE handle = ::CreateSemaphoreA(NULL , 0 , LONG_MAX , sem_name) ;
 
     LONG prev_count = 0 ;
     if(::ReleaseSemaphore(handle , 1 , &prev_count) == FALSE)
@@ -19,7 +19,7 @@ int main(int argc , char * argv[])
     for(; idx < 200 ; ++idx)
     {
         DWORD result = 0 ;
-        if((result = ::WaitForSingleObject(handle , 0)) == WAIT_OBJECT_0)
+        if((result = ::WaitForSingleObject(handle , INFINITE)) == WAIT_OBJECT_0)
             continue ;
 
         ::printf("idx = %d , result = %u , errcode = %u \n" ,idx , result , ::GetLastError()) ;

@@ -28,6 +28,7 @@ int main(int argc , char * argv[])
 
     ticks.start() ;
     uint32_t max_number = 0x1000000 ;
+    //uint32_t max_number = 0x2 ;
     for(uint32_t idx = 0 ; idx < max_number ; ++idx)
     {
         rx_tree_insert(&tree , idx , idx) ;
@@ -39,8 +40,6 @@ int main(int argc , char * argv[])
     ticks.start() ;
     for(uint32_t idx = 0 ; idx < max_number ; ++idx)
     {
-        //if(idx == 63929)
-        //    ::printf("maybe error \n") ;
         rx_node_t * node = rx_tree_find(&tree , idx) ;
         if(node == NULL ||node->value != idx)
         {
@@ -66,16 +65,12 @@ int main(int argc , char * argv[])
     if(err_counter != 0)
         ::printf("failed to erase key , counter[%d] \n" , err_counter) ;
 
+    ::printf("left page count[%u] after erase\n" , mems.count()) ;
+    mems.print_left() ;
 
 
     rx_tree_final(&tree) ;
-    printf("page count[%u] historic count[%u] memsize[%u]\n" , mems.count() , mems.historic_count() , mems.size()) ;
-
-    const std::map<void * , uint32_t>& addrs = mems.addrs() ;
-    for(std::map<void * , uint32_t>::const_iterator citer = addrs.begin() ; citer != addrs.end() ; ++citer)
-    {
-        ::printf("addr = %p key = %u \n" , citer->first , citer->second) ;
-    }
+    printf("left page count[%u] historic count[%u] memsize[%u]\n" , mems.count() , mems.historic_count() , mems.size()) ;
 
     return 0 ;
 }

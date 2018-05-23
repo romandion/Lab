@@ -21,6 +21,8 @@ bool rx_tree_init(rx_tree_t * tree , uint8_t * bits , uint32_t level , void (*va
     tree->total = total ;
     tree->free = value_free ;
 
+    tree->root.left = tree->root.right = &tree->root ;
+
     return true ;
 }
 
@@ -166,11 +168,11 @@ bool rx_tree_erase(rx_tree_t * tree , uint32_t key)
     if(tree == NULL || tree->root.nodes == NULL)
         return false ;
 
-    uint32_t level = tree->level ;
+    int level = (int)tree->level ;
     uint8_t high_bits = 0 ;
     rx_node_t * cur = &tree->root ;
     rx_node_t * path[8] = {cur};
-    for(uint32_t lidx = 0 ; lidx < level ; ++lidx)
+    for(int lidx = 0 ; lidx < level ; ++lidx)
     {
         rx_node_t * nodes = cur->nodes ;
         if(nodes == NULL)
@@ -189,7 +191,7 @@ bool rx_tree_erase(rx_tree_t * tree , uint32_t key)
     cur->value = 0 ;
 
     //清除访问路径上的空节点
-    for(uint32_t lidx = level ; lidx > 0 ; --lidx)
+    for(int lidx = level ; lidx >= 0 ; --lidx)
     {
         rx_node_t * node = path[lidx] ;
         if(node->childs == NULL)
@@ -201,9 +203,12 @@ bool rx_tree_erase(rx_tree_t * tree , uint32_t key)
                 node->nodes = NULL ;
             }
         }
+        path[lidx] = NULL ;
+        if(lidx == 0)
+            break ;
 
         rx_node_t * parent = path[lidx - 1] ;
-        if(node->left == cur)
+        if(node->left == node)
         {
             //唯一个节点
             parent->childs = NULL ;
