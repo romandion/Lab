@@ -17,6 +17,15 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "semaphore", "semaphore\sema
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "rxtree", "rxtree\rxtree.vcproj", "{E842AADA-BC79-46BC-8E55-2C279E867789}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "type_check", "type_check\type_check.vcproj", "{6ED362D2-069B-4318-A5A0-90DFED263CF0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "intrin", "intrin\intrin.vcproj", "{BF41B22D-63B4-4B42-B21C-DF01EE21F54F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{F47CFC65-8959-408F-A46D-D3E8EB7CCED6} = {F47CFC65-8959-408F-A46D-D3E8EB7CCED6}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "intrin_dll", "intrin\intrin_dll.vcproj", "{F47CFC65-8959-408F-A46D-D3E8EB7CCED6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -55,6 +64,18 @@ Global
 		{E842AADA-BC79-46BC-8E55-2C279E867789}.Debug|Win32.Build.0 = Debug|Win32
 		{E842AADA-BC79-46BC-8E55-2C279E867789}.Release|Win32.ActiveCfg = Release|Win32
 		{E842AADA-BC79-46BC-8E55-2C279E867789}.Release|Win32.Build.0 = Release|Win32
+		{6ED362D2-069B-4318-A5A0-90DFED263CF0}.Debug|Win32.ActiveCfg = Debug|Win32
+		{6ED362D2-069B-4318-A5A0-90DFED263CF0}.Debug|Win32.Build.0 = Debug|Win32
+		{6ED362D2-069B-4318-A5A0-90DFED263CF0}.Release|Win32.ActiveCfg = Release|Win32
+		{6ED362D2-069B-4318-A5A0-90DFED263CF0}.Release|Win32.Build.0 = Release|Win32
+		{BF41B22D-63B4-4B42-B21C-DF01EE21F54F}.Debug|Win32.ActiveCfg = Debug|Win32
+		{BF41B22D-63B4-4B42-B21C-DF01EE21F54F}.Debug|Win32.Build.0 = Debug|Win32
+		{BF41B22D-63B4-4B42-B21C-DF01EE21F54F}.Release|Win32.ActiveCfg = Release|Win32
+		{BF41B22D-63B4-4B42-B21C-DF01EE21F54F}.Release|Win32.Build.0 = Release|Win32
+		{F47CFC65-8959-408F-A46D-D3E8EB7CCED6}.Debug|Win32.ActiveCfg = Debug|Win32
+		{F47CFC65-8959-408F-A46D-D3E8EB7CCED6}.Debug|Win32.Build.0 = Debug|Win32
+		{F47CFC65-8959-408F-A46D-D3E8EB7CCED6}.Release|Win32.ActiveCfg = Release|Win32
+		{F47CFC65-8959-408F-A46D-D3E8EB7CCED6}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
