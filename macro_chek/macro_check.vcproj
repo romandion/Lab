@@ -2,9 +2,9 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="9.00"
-	Name="type_check"
-	ProjectGUID="{6ED362D2-069B-4318-A5A0-90DFED263CF0}"
-	RootNamespace="type_check"
+	Name="macro_check"
+	ProjectGUID="{77FFFEAE-CC72-4937-9738-C9256E9F7568}"
+	RootNamespace="macro_check"
 	Keyword="Win32Proj"
 	TargetFrameworkVersion="196613"
 	>
@@ -181,6 +181,14 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
+			<File
+				RelativePath=".\macro.h"
+				>
+			</File>
+			<File
+				RelativePath=".\ph.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="资源文件"
