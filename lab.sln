@@ -35,6 +35,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "mdll", "mperf\mdll.vcproj",
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "macro_check", "macro_chek\macro_check.vcproj", "{77FFFEAE-CC72-4937-9738-C9256E9F7568}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "math", "math\math.vcproj", "{DDC5B41A-C484-4DC3-8C29-C5B408BA31D3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "env", "env\env.vcproj", "{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -97,6 +101,14 @@ Global
 		{77FFFEAE-CC72-4937-9738-C9256E9F7568}.Debug|Win32.Build.0 = Debug|Win32
 		{77FFFEAE-CC72-4937-9738-C9256E9F7568}.Release|Win32.ActiveCfg = Release|Win32
 		{77FFFEAE-CC72-4937-9738-C9256E9F7568}.Release|Win32.Build.0 = Release|Win32
+		{DDC5B41A-C484-4DC3-8C29-C5B408BA31D3}.Debug|Win32.ActiveCfg = Debug|Win32
+		{DDC5B41A-C484-4DC3-8C29-C5B408BA31D3}.Debug|Win32.Build.0 = Debug|Win32
+		{DDC5B41A-C484-4DC3-8C29-C5B408BA31D3}.Release|Win32.ActiveCfg = Release|Win32
+		{DDC5B41A-C484-4DC3-8C29-C5B408BA31D3}.Release|Win32.Build.0 = Release|Win32
+		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Debug|Win32.ActiveCfg = Debug|Win32
+		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Debug|Win32.Build.0 = Debug|Win32
+		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Release|Win32.ActiveCfg = Release|Win32
+		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
