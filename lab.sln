@@ -39,6 +39,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "math", "math\math.vcproj", 
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "env", "env\env.vcproj", "{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dlldir", "dlldir\dlldir.vcproj", "{A8928F4B-C669-47EC-BF3D-9557C6C13720}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "back_trace", "back_trace\back_trace.vcproj", "{FC317105-A78B-4649-AE1D-8CB66ECD4B62}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -109,6 +113,14 @@ Global
 		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Debug|Win32.Build.0 = Debug|Win32
 		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Release|Win32.ActiveCfg = Release|Win32
 		{025E7B4E-5F1E-4FE5-A773-B8EDD7BE0829}.Release|Win32.Build.0 = Release|Win32
+		{A8928F4B-C669-47EC-BF3D-9557C6C13720}.Debug|Win32.ActiveCfg = Debug|Win32
+		{A8928F4B-C669-47EC-BF3D-9557C6C13720}.Debug|Win32.Build.0 = Debug|Win32
+		{A8928F4B-C669-47EC-BF3D-9557C6C13720}.Release|Win32.ActiveCfg = Release|Win32
+		{A8928F4B-C669-47EC-BF3D-9557C6C13720}.Release|Win32.Build.0 = Release|Win32
+		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Debug|Win32.ActiveCfg = Debug|Win32
+		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Debug|Win32.Build.0 = Debug|Win32
+		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Release|Win32.ActiveCfg = Release|Win32
+		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
