@@ -43,6 +43,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "dlldir", "dlldir\dlldir.vcp
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "back_trace", "back_trace\back_trace.vcproj", "{FC317105-A78B-4649-AE1D-8CB66ECD4B62}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netif", "netif\netif.vcproj", "{10EC4373-92B8-46C4-96E3-9B8645FC7A65}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -121,6 +123,10 @@ Global
 		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Debug|Win32.Build.0 = Debug|Win32
 		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Release|Win32.ActiveCfg = Release|Win32
 		{FC317105-A78B-4649-AE1D-8CB66ECD4B62}.Release|Win32.Build.0 = Release|Win32
+		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Debug|Win32.ActiveCfg = Debug|Win32
+		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Debug|Win32.Build.0 = Debug|Win32
+		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Release|Win32.ActiveCfg = Release|Win32
+		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
