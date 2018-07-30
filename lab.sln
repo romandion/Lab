@@ -45,6 +45,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "back_trace", "back_trace\ba
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "netif", "netif\netif.vcproj", "{10EC4373-92B8-46C4-96E3-9B8645FC7A65}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "temp", "temp\temp.vcproj", "{AA15168E-EFC9-4F13-BC69-541C2BAF0D9C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -127,6 +129,10 @@ Global
 		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Debug|Win32.Build.0 = Debug|Win32
 		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Release|Win32.ActiveCfg = Release|Win32
 		{10EC4373-92B8-46C4-96E3-9B8645FC7A65}.Release|Win32.Build.0 = Release|Win32
+		{AA15168E-EFC9-4F13-BC69-541C2BAF0D9C}.Debug|Win32.ActiveCfg = Debug|Win32
+		{AA15168E-EFC9-4F13-BC69-541C2BAF0D9C}.Debug|Win32.Build.0 = Debug|Win32
+		{AA15168E-EFC9-4F13-BC69-541C2BAF0D9C}.Release|Win32.ActiveCfg = Release|Win32
+		{AA15168E-EFC9-4F13-BC69-541C2BAF0D9C}.Release|Win32.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
