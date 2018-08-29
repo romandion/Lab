@@ -85,12 +85,14 @@ int main(int argc , char * argv[])
              unicast_address != NULL;unicast_address = unicast_address->Next)
         {
             SOCKADDR *sa = unicast_address->Address.lpSockaddr ;
+            if(sa->sa_family != AF_INET)
+                continue ;
+
             SOCKADDR_IN *sin = (SOCKADDR_IN *)sa ;
-            ::printf("unicast = %s:%d \n" , ::inet_ntoa(sin->sin_addr) , sin->sin_port) ;
+            ::printf("unicast = %s:%d , prefix = %d\n" , ::inet_ntoa(sin->sin_addr) , sin->sin_port , (int)unicast_address->OnLinkPrefixLength) ;
 
             count++;
-        }
-    
+        }    
     }
 
     
